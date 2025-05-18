@@ -26,7 +26,7 @@ clickBtn.addEventListener('click', () => {
   logArea.prepend(logEntry)
 
   // 🔥 Send data to your backend
-  fetch('https://my-first-website-2-5qkz.onrender.com', {
+  fetch('https://my-first-website-2-5qkz.onrender.com/click', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
