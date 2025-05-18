@@ -20,6 +20,19 @@ clickBtn.addEventListener('click', () => {
 
   clickCount++
   localStorage.setItem('clickCount', clickCount)
+  fetch('https://your-backend-url.com/click', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    username: username,
+    clickCount: clickCount
+  })
+})
+.then(res => res.json())
+.then(json => console.log('Data saved to DB:', json))
+.catch(err => console.error('Failed to save data:', err))
 
   const logEntry = document.createElement('div')
   logEntry.textContent = `${username} just clicked the button for the ${clickCount}${getOrdinal(clickCount)} time!`
