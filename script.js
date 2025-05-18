@@ -20,24 +20,31 @@ clickBtn.addEventListener('click', () => {
 
   clickCount++
   localStorage.setItem('clickCount', clickCount)
-  fetch('https://your-backend-url.com/click', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    username: username,
-    clickCount: clickCount
-  })
-})
-.then(res => res.json())
-.then(json => console.log('Data saved to DB:', json))
-.catch(err => console.error('Failed to save data:', err))
 
   const logEntry = document.createElement('div')
   logEntry.textContent = `${username} just clicked the button for the ${clickCount}${getOrdinal(clickCount)} time!`
   logArea.prepend(logEntry)
+
+  // 🔥 Send data to your backend
+  fetch('https://my-first-website-2-5qkz.onrender.com', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username,
+      count: clickCount
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Response from backend:', data)
+  })
+  .catch(err => {
+    console.error('Error sending click data:', err)
+  })
 })
+
 
 function getOrdinal(n) {
   if (n % 100 >= 11 && n % 100 <= 13) return 'th'
