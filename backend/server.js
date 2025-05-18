@@ -12,8 +12,13 @@ let db;
 
 client.connect()
   .then(() => {
-    db = client.db('clickApp'); // 👈 database name (create any)
+    db = client.db('clickApp');
     console.log('✅ Connected to MongoDB');
+
+    // Start server only after successful DB connection
+    app.listen(PORT, () => {
+      console.log(`API running on port ${PORT}`);
+    });
   })
   .catch(err => {
     console.error('❌ MongoDB connection error:', err);
@@ -63,7 +68,4 @@ app.get('/total-clicks', async (req, res) => {
   }
 });
 
-// 6. Start server
-app.listen(PORT, () => {
-  console.log(`API running on port ${PORT}`);
-});
+
